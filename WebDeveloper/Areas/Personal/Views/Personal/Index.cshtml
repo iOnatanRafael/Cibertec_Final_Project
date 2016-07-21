@@ -2,13 +2,15 @@
 
 @{
     ViewBag.Title = "Index";
-    int? selectedId = null;
 }
 
 <h2>Index</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create", "Personal")
+    @*@Html.ActionLink("Create New", "Create")*@
+    <a href="#" class="btn btn-success btn-sm" onclick="getModal('Personal/Create'); return false;">
+        <span class="glyphicon glyphicon-plus"> Create New</span>
+    </a>
 </p>
 <table class="table">
     <tr>
@@ -42,10 +44,23 @@
             @Html.DisplayFor(modelItem => item.ModifiedDate)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new {id = item.BusinessEntityID}) |
+            <a href="#" class="btn btn-success btn-sm">
+                <span class="glyphicon glyphicon-edit"> Edit</span>
+            </a>
+            <a href="#" class="btn btn-success btn-sm">
+                <span class="glyphicon glyphicon-list"> Details</span>
+            </a>
+            <a href="#" class="btn btn-success btn-sm" onclick="getModal('Personal/EmailList/@item.BusinessEntityID'); return false;">
+                <span class="glyphicon glyphicon-envelope"> View Emails</span>
+            </a>
+            <a href="#" class="btn btn-danger btn-sm">
+                <span class="glyphicon glyphicon-remove"> Delete</span>
+            </a>
+    
+            @*@Html.ActionLink("Edit", "Edit", new {id = item.BusinessEntityID}) |
             @Html.ActionLink("Details", "Details", new {id = item.BusinessEntityID}) |
-            @Html.ActionLink("Delete", "Delete", new {id = item.BusinessEntityID}) |
-            @Ajax.ActionLink(
+            @Html.ActionLink("Delete", "Delete", new {id = item.BusinessEntityID}) |*@
+            @*@Ajax.ActionLink(
                 "View Emails",
                 "EmailList",
                 new {id=item.BusinessEntityID },
@@ -55,13 +70,13 @@
                     UpdateTargetId = "emailList",
                     HttpMethod = "GET"
                 }
-            )
+            )*@
+            @*<a href="#" onclick="getModal('Personal/EmailList/@item.BusinessEntityID');return false;">View Emails</a>*@            
         </td>
     </tr>
 }
 </table>
-
+@CustomHelpers.GetModal()
 <div id="emailList">
 </div>
-
 @Scripts.Render("~/Scripts/jquery.unobtrusive-ajax.min.js")
